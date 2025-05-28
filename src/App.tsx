@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardsRender from "./components/CardsRender";
 import Nav from "./components/Nav";
 import { type Character } from "./characters";
@@ -15,6 +15,11 @@ function App() {
   const [endGame, setEndGame] = useState(false);
 
   const { score, bestScore, updateScore, updateBestScore } = useScoreStore();
+
+  
+  useEffect(() => {
+    updateCharacters(shuffleCards([...characters]))
+  }, [])
 
   function shuffleCards(array: Character[]) {
     let currentIndex = array.length;
@@ -35,7 +40,7 @@ function App() {
     if (character.isClicked) {
       setEndGame(true);
     } else {
-      if (score < 12) {
+      if (score + 1 < 12) {
         updateScore(score);
       } else {
         setEndGame(true);
@@ -47,7 +52,6 @@ function App() {
       );
       updateCharacters(shuffleCards([...updatedCharacters]));
 
-      // Update best score if current score is higher
       if (score + 1 > bestScore) {
         updateBestScore(score + 1);
       }
