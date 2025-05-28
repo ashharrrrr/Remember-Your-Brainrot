@@ -2,6 +2,8 @@
 
 ![Preview](public/brainrotPreview.png)
 
+**[Live Demo](https://remember-your-brainrot.vercel.app/)**
+
 A memory card game featuring popular internet meme characters. Test your memory by clicking on different characters without repeating any selections. The goal is to click on all characters exactly once to achieve the perfect score.
 
 ## How to Play

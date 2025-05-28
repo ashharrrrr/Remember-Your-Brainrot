@@ -16,10 +16,9 @@ function App() {
 
   const { score, bestScore, updateScore, updateBestScore } = useScoreStore();
 
-  
   useEffect(() => {
-    updateCharacters(shuffleCards([...characters]))
-  }, [])
+    updateCharacters(shuffleCards([...characters]));
+  }, []);
 
   function shuffleCards(array: Character[]) {
     let currentIndex = array.length;
@@ -40,17 +39,17 @@ function App() {
     if (character.isClicked) {
       setEndGame(true);
     } else {
-      if (score + 1 < 12) {
-        updateScore(score);
-      } else {
-        setEndGame(true);
-      }
-
+      updateScore(score);
       updateIsClicked(character.id, true);
       const updatedCharacters = characters.map((char) =>
         char.id === character.id ? { ...char, isClicked: true } : char
       );
       updateCharacters(shuffleCards([...updatedCharacters]));
+
+      // Check if player has won (clicked all 12 characters)
+      if (score + 1 >= 12) {
+        setEndGame(true);
+      }
 
       if (score + 1 > bestScore) {
         updateBestScore(score + 1);
