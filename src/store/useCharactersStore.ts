@@ -4,10 +4,18 @@ import { type Character } from '../characters';
 
 type CharactersStoreType = {
   characters: Character[],
-  updateCharacters: (newCharacters: Character[]) => void
+  updateCharacters: (newCharacters: Character[]) => void,
+  updateIsClicked: (id: number, isClicked: boolean) => void
 };
 
 export const useCharactersStore = create<CharactersStoreType>((set) => ({
   characters: characters,
-  updateCharacters: (newCharacters) => set(() => ({characters: newCharacters}))
+  updateCharacters: (newCharacters) => set(() => ({characters: newCharacters})),
+  updateIsClicked: (id, isClicked) => set((state) => ({
+    characters: state.characters.map(character => 
+      character.id === id 
+        ? { ...character, isClicked: isClicked }
+        : character
+    )
+  }))
 }));
